@@ -1,0 +1,226 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <!-- mapbox mapping -->
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js"></script>
+    <!-- mapbox mapping -->
+
+
+    <!-- leaflet mapping -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <!-- leaflet mapping -->
+
+    <!-- font awesome -->
+    <script src="https://kit.fontawesome.com/0fd876c987.js" crossorigin="anonymous"></script>
+    <!-- font awesome -->
+
+
+    <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/js/adminlte.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/css/adminlte.min.css">
+    <link href="lib/mapbox.js/latest/mapbox.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/fonts/mplus.css">
+    <title>geojson.io</title>
+    <link href="lib/draw/leaflet.draw.css" rel="stylesheet">
+    <link href="lib/codemirror/lib/codemirror.css" rel="stylesheet">
+    <link href="css/base.css" rel="stylesheet">
+    <link href="css/marker.css" rel="stylesheet">
+    <link href="css/github_browse.css" rel="stylesheet">
+    <link href="css/site.css" rel="stylesheet">
+    <!-- css/site.css is used for UI division -->
+    <link href="css/theme.css" rel="stylesheet">
+    <link href="css/geojson.css" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="C:/Users/TRILOK/Desktop/geojson/img/favicon.png">
+    <meta name="author" content="MapBox">
+    <meta name="description" content="simply edit geojson map data">
+    <meta property="og:site_name" content="geojson.io">
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1">
+    <!--[if lt IE 9]>
+      <script type='text/javascript' src='lib/aight.min.js'></script>
+    <![endif]-->
+    <script async src="https://www.google-analytics.com/analytics.js"></script>
+    <script src="lib/mapbox.js/latest/mapbox.js"></script>
+    <script src="lib/raven.min.js"></script>
+    <meta http-equiv="Content-Security-Policy" content="
+      default-src
+        'self'
+        ;
+      child-src
+        'self'
+        blob:
+        ;
+      connect-src
+        'self'
+        *
+        ;
+      font-src
+        'self'
+        ;
+      frame-src
+        'self'
+        ;
+      img-src
+        'self'
+        data:
+        *
+        ;
+      script-src
+        'self'
+        'unsafe-eval'
+        'unsafe-inline'
+        https://cdn.segment.com
+        https://assets.customer.io
+        https://secure.gaug.es
+        https://www.google-analytics.com
+        ;
+      style-src
+        'self'
+        'unsafe-inline'
+        ;
+    ">
+    <script>
+        if (/a\.tiles\.mapbox\.com/.test(L.mapbox.config.HTTP_URL)) {
+            Raven.config('https://c2d096c944dd4150ab7e44b0881b4a46@app.getsentry.com/11480', {
+                whitelistUrls: [/geojson\.io/],
+                ignoreErrors: [
+                    'Uncaught Error: Error connecting to extension ckibcdccnfeookdmbahgiakhnjcddpki',
+                    'Uncaught Error: Error connecting to extension pioclpoplcdbaefihamjohnefbikjilc'
+                ]
+            }).install();
+        }
+    </script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map"></div>
+    <script>
+        mapboxgl.accessToken = 'pk.eyJ1IjoidHJpbG9rcmVnYXIiLCJhIjoiY2txcm5wYWdwMTlvcDJ4cWhzdHZqa2NtbyJ9.WqTvRduph0nj56YgXdkLuA';
+        var map = new mapboxgl.Map({
+            container: 'map', // container id
+            style: 'mapbox://styles/mapbox/streets-v11',
+            center: [0, 0], // starting position
+            zoom: 1 // starting zoom
+        });
+
+        // Add zoom and rotation controls to the map.
+        map.addControl(new mapboxgl.NavigationControl());
+    </script>
+
+    <div class="file-bar">
+        <div class="inline">
+            <div class="item"><a class="parent"> Open</a>
+                <div class="children"><a title="GeoJSON, TopoJSON, GTFS, KML, CSV, GPX and OSM XML supported">File</a><a title="GeoJSON files in GitHub Repositories">GitHub</a><a title="GeoJSON files in GitHub Gists">Gist</a></div>
+            </div>
+            <div class="item"><a class="parent"> Save</a>
+                <div class="children"><a title="GeoJSON files in GitHub Repositories">GitHub</a><a title="GeoJSON files in GitHub Gists">Gist</a><a>GeoJSON</a><a>TopoJSON</a><a>CSV</a><a>KML</a><a>WKT</a><a>Shapefile</a>
+                </div>
+            </div>
+            <div class="item"><a class="parent"> New</a></div>
+            <div class="item"><a class="parent"> Share</a></div>
+            <div class="item"><a class="parent"> Meta</a>
+                <div class="children"><a title="Add a custom tile layer">Add map layer</a><a title="Zoom to the extent of all features">Zoom to features</a><a title="Delete all features from the map">Clear</a><a title="Add random points to your map">Random: Points</a><a title="Add bounding box members to all applicable GeoJSON objects">Add bboxes</a>
+                    <a title="Flatten MultiPolygons, MultiLines, and GeometryCollections into simple geometries">Flatten
+                        Multi Features</a><a>Load encoded polyline</a><a>Load WKB Base64 Encoded String</a><a>Load WKB
+                        Hex Encoded String</a><a>Load WKT String</a>
+                </div>
+            </div>
+        </div>
+        <div class="name">
+            <i class="far fa-file"></i>
+            <a target="_blank"></a><span class="filename">unsaved</span>
+        </div>
+    </div>
+    <div class="right">
+        <div class="top"><button class="collapse-button" title="Collapse">
+                <class class="icon icon-caret-down"></class>
+            </button>
+            <div class="user fr pad1 deemphasize"><a target="_blank" href="https://github.com/trilokregar">trilokregar</a><span> | </span><a href="#">logout</a></div>
+            <div class="buttons"><button title="JSON Source" class="active"><span class="icon-code"></span><span>
+                        JSON</span></button><button title="Edit feature properties in a table"><span
+                        class="icon-table"></span><span> Table</span></button><button title="Help"><span
+                        class="icon-question"></span><span> Help</span></button></div>
+        </div>
+        <div class="pane"><textarea style="display: none;"></textarea>
+            <div class="CodeMirror cm-s-eclipse">
+                <div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 72.8819px; left: 41.2326px;">
+                    <textarea autocorrect="off" autocapitalize="off" spellcheck="false" style="position: absolute; padding: 0px; width: 1000px; height: 1em; outline: none; font-size: 4px;" tabindex="0"></textarea></div>
+                <div class="CodeMirror-hscrollbar" style="left: 29px;">
+                    <div style="height: 1px;"></div>
+                </div>
+                <div class="CodeMirror-vscrollbar">
+                    <div style="width: 1px;"></div>
+                </div>
+                <div class="CodeMirror-scrollbar-filler"></div>
+                <div class="CodeMirror-gutter-filler"></div>
+                <div class="CodeMirror-scroll" tabindex="-1">
+                    <div class="CodeMirror-sizer" style="min-width: 284.389px; margin-left: 29px; min-height: 96.8889px;">
+                        <div style="position: relative; top: 0px;">
+                            <div class="CodeMirror-lines">
+                                <div style="position: relative; outline: none;">
+                                    <div class="CodeMirror-measure">
+                                        <pre><span>}</span></pre>
+                                    </div>
+                                    <div style="position: relative; z-index: 1; display: none;"></div>
+                                    <div class="CodeMirror-code" style="">
+                                        <div style="position: relative;">
+                                            <div style="position: absolute; left: -28.993px;">
+                                                <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">1</div>
+                                            </div>
+                                            <pre>{</pre>
+                                        </div>
+                                        <div style="position: relative;">
+                                            <div style="position: absolute; left: -28.993px;">
+                                                <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">2</div>
+                                            </div>
+                                            <pre>  <span class="cm-string cm-property">"type"</span>: <span class="cm-string">"FeatureCollection"</span>,</pre>
+                                        </div>
+                                        <div style="position: relative;">
+                                            <div style="position: absolute; left: -28.993px;">
+                                                <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">3</div>
+                                            </div>
+                                            <pre>  <span class="cm-string cm-property">"features"</span>: []</pre>
+                                        </div>
+                                        <div style="position: relative;">
+                                            <div style="position: absolute; left: -28.993px;">
+                                                <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">4</div>
+                                            </div>
+                                            <pre>}</pre>
+                                        </div>
+                                    </div>
+                                    <div class="CodeMirror-cursor" style="left: 12.2396px; top: 68.8889px; height: 16.6667px;">&nbsp;</div>
+                                    <div class="CodeMirror-cursor CodeMirror-secondarycursor" style="display: none;">
+                                        &nbsp;</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="position: absolute; height: 30px; width: 1px; top: 96.8889px;"></div>
+                    <div class="CodeMirror-gutters" style="height: 664px;">
+                        <div class="CodeMirror-gutter error"></div>
+                        <div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 28px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
