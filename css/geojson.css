@@ -1,7 +1,23 @@
+#mapid {
+    height: 100%;
+}
+
 .inline {
-    display: inline-flex
+    display: inline-flex;
 }
 
 .file-bar {
     display: flex;
+}
+
+.leaflet-control-container {
+    position: absolute;
+    right: 56px;
+}
+
+.leaflet-control {
+    float: right;
+    clear: both;
+    margin-top: -630px;
+    margin-right: 20px;
 }
