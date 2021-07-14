@@ -3,6 +3,12 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- bootstrap library CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- bootstrap library CSS -->
+
     <!-- leaflet mapping -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
@@ -12,27 +18,28 @@
     <script src="https://kit.fontawesome.com/0fd876c987.js" crossorigin="anonymous"></script>
     <!-- font awesome -->
 
+    <!-- AdminLTE -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/js/adminlte.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/css/adminlte.min.css"> -->
+    <!-- AdminLTE -->
 
-    <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/js/adminlte.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/css/adminlte.min.css">
-    <link href="lib/mapbox.js/latest/mapbox.css" rel="stylesheet">
     <link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/fonts/mplus.css">
     <title>geojson.io</title>
     <link href="lib/draw/leaflet.draw.css" rel="stylesheet">
-    <link href="lib/codemirror/lib/codemirror.css" rel="stylesheet">
+    <!-- <link href="lib/codemirror/lib/codemirror.css" rel="stylesheet"> -->
     <link href="css/base.css" rel="stylesheet">
-    <link href="css/marker.css" rel="stylesheet">
-    <link href="css/github_browse.css" rel="stylesheet">
+    <!-- <link href="css/marker.css" rel="stylesheet"> -->
+    <!-- <link href="css/github_browse.css" rel="stylesheet"> -->
     <link href="css/site.css" rel="stylesheet">
     <!-- css/site.css is used for UI division -->
-    <link href="css/theme.css" rel="stylesheet">
+    <!-- <link href="css/theme.css" rel="stylesheet"> -->
     <link href="css/geojson.css" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="C:/Users/TRILOK/Desktop/geojson/img/favicon.png">
-    <meta name="author" content="MapBox">
-    <meta name="description" content="simply edit geojson map data">
-    <meta property="og:site_name" content="geojson.io">
-    <meta name="viewport" content="initial-scale=1,maximum-scale=1">
+    <!-- <meta name="author" content="MapBox"> -->
+    <!-- <meta name="description" content="simply edit geojson map data"> -->
+    <!-- <meta property="og:site_name" content="geojson.io"> -->
+    <!-- <meta name="viewport" content="initial-scale=1,maximum-scale=1"> -->
     <!--[if lt IE 9]>
       <script type='text/javascript' src='lib/aight.min.js'></script>
     <![endif]-->
@@ -76,7 +83,7 @@
         'unsafe-inline'
         ;
     ">
-    <script>
+    <!-- <script>
         if (/a\.tiles\.mapbox\.com/.test(L.mapbox.config.HTTP_URL)) {
             Raven.config('https://c2d096c944dd4150ab7e44b0881b4a46@app.getsentry.com/11480', {
                 whitelistUrls: [/geojson\.io/],
@@ -86,7 +93,7 @@
                 ]
             }).install();
         }
-    </script>
+    </script> -->
     <style>
         body {
             margin: 0;
@@ -94,35 +101,28 @@
         }
         
         #map {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            width: 100%;
+            height: 100%;
         }
     </style>
 </head>
 
 <body>
-    <div id="mapid"></div>
 
+    <div id="map"></div>
     <script>
-        var mymap = L.map('mapid').setView([0, 0], 1);
+        var map = L.map('map').setView([51.505, -0.09], 13);
 
-        L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
-            maxZoom: 18,
-            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, ' +
-                'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-            id: 'mapbox/streets-v11',
-            tileSize: 512,
-            zoomOffset: -1
-        }).addTo(mymap);
-        var marker = L.marker([25.902018232132814, 74.69011710877476]).addTo(mymap);
-        marker.bindPopup("<b>Hello world!!</b><br>this is my HOUSE.").openPopup();
-        L.control.zoom({
-            position: 'bottomright'
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
+
+        // marker on map //
+        var marker = L.marker([25.902018232132814, 74.69011710877476]).addTo(map);
+        marker.bindPopup("<b> Hello world!!</b > <br>this is my HOUSE.").openPopup();
+        // marker on map //
     </script>
 
+    <!--header section LEFT-->
     <div class="file-bar">
         <div class="inline">
             <div class="item"><a class="parent"> Open</a>
@@ -143,28 +143,146 @@
             </div>
         </div>
         <div class="name">
-            <a target="_blank" class="icon-file-alt"></a><span class="filename">unsaved</span>
+            <a target="_blank"></a><i class="far fa-file"></i><span class="filename deemphasize">unsaved</span>
         </div>
     </div>
-    <!--  -->
-    <div class="leaflet-draw leaflet-control">
-        <div class="leaflet-draw-section">
-            <div class="leaflet-draw-toolbar leaflet-bar leaflet-draw-toolbar-top">
-                <a class="leaflet-draw-draw-polyline" href="#" title="Draw a polyline"></a>
-                <a class="leaflet-draw-draw-polygon" href="#" title="Draw a polygon"></a>
-                <a class="leaflet-draw-draw-rectangle" href="#" title="Draw a rectangle"></a>
-                <a class="leaflet-draw-draw-marker" href="#" title="Draw a marker"></a>
-            </div>
-            <ul class="leaflet-draw-actions"></ul>
+    <!--header section-->
+
+    <!-- side nav bar includes shapes-edit-delete -->
+    <div class="leaflet-top leaflet-right" style="margin-top: 120px; margin-right: 10px;">
+        <div class="leaflet-control-grid map-tooltip leaflet-control" style="display: none;"><a class="close" href="#" title="close">close</a>
+            <div class="map-tooltip-content"></div>
         </div>
-        <div class="leaflet-draw-section">
-            <div class="leaflet-draw-toolbar leaflet-bar">
-                <a class="leaflet-draw-edit-edit leaflet-disabled" href="#" title="No layers to edit."></a>
-                <a class="leaflet-draw-edit-remove leaflet-disabled" href="#" title="No layers to delete."></a>
+        <div class="leaflet-control-mapbox-geocoder leaflet-bar leaflet-control"><a class="leaflet-control-mapbox-geocoder-toggle mapbox-icon mapbox-icon-geocoder" href="#">&nbsp;</a>
+            <div class="leaflet-control-mapbox-geocoder-results"></div>
+            <div class="leaflet-control-mapbox-geocoder-wrap">
+                <form class="leaflet-control-mapbox-geocoder-form"><input class="" type="text" placeholder="Search">
+                </form>
             </div>
-            <ul class="leaflet-draw-actions"></ul>
+        </div>
+        <div class="leaflet-control-zoom leaflet-bar leaflet-control"></div>
+        <div class="leaflet-draw leaflet-control">
+            <div class="leaflet-draw-section">
+                <div class="leaflet-draw-toolbar leaflet-bar leaflet-draw-toolbar-top">
+                    <a class="leaflet-draw-draw-polyline" href="#" title="Draw a polyline"></a>
+                    <a class="leaflet-draw-draw-polygon" href="#" title="Draw a polygon"></a>
+                    <a class="leaflet-draw-draw-rectangle" href="#" title="Draw a rectangle"></a>
+                    <a class="leaflet-draw-draw-marker" href="#" title="Draw a marker"></a>
+                </div>
+                <ul class="leaflet-draw-actions"></ul>
+            </div>
+            <div class="leaflet-draw-section">
+                <div class="leaflet-draw-toolbar leaflet-bar">
+                    <a class="leaflet-draw-edit-edit leaflet-disabled" href="#" title="No layers to edit."></a>
+                    <a class="leaflet-draw-edit-remove leaflet-disabled" href="#" title="No layers to delete."></a>
+                </div>
+                <ul class="leaflet-draw-actions"></ul>
+            </div>
         </div>
     </div>
+    <!-- side nav bar includes shapes-edit-delete -->
+
+    <!-- mapbox setellite OSM -->
+    <div class="layer-switch"><button class="pad0x active">Leaflet</button><button class="pad0x">Satellite</button><button class="pad0x">OSM</button></div>
+    <!-- mapbox setellite OSM -->
+
+    <!-- header section-RIGHT -->
+    <div class="right">
+        <div class="top"><button class="collapse-button" title="Collapse">
+                <i class="fas fa-caret-up"></i>
+            </button>
+            <div class="user fr pad1 deemphasize"><a target="_blank" href="#">anon</a><span> | </span><a href="#">login</a></div>
+            <div class="buttons"><button title="JSON Source" class="active"><span class="icon-code"></span><span>
+                        JSON</span></button><button title="Edit feature properties in a table"><span
+                        class="icon-table"></span><span> Table</span></button><button title="Help"><span
+                        class="icon-question"></span><span> Help</span></button></div>
+        </div>
+        <div class="pane"><textarea style="display: none;"></textarea>
+            <div class="CodeMirror cm-s-eclipse">
+                <div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 6.21528px; left: 32.9861px;">
+                    <textarea autocorrect="off" autocapitalize="off" spellcheck="false" style="position: absolute; padding: 0px; width: 1000px; height: 1em; outline: none; font-size: 4px;" tabindex="0"></textarea></div>
+                <div class="CodeMirror-hscrollbar" style="left: 29px;">
+                    <div style="height: 1px;"></div>
+                </div>
+                <div class="CodeMirror-vscrollbar">
+                    <div style="width: 1px;"></div>
+                </div>
+                <div class="CodeMirror-scrollbar-filler"></div>
+                <div class="CodeMirror-gutter-filler"></div>
+                <div class="CodeMirror-scroll" tabindex="-1">
+                    <div class="CodeMirror-sizer" style="min-width: 284.389px; margin-left: 29px; min-height: 96.8889px;">
+                        <div style="position: relative; top: 0px;">
+                            <div class="CodeMirror-lines">
+                                <div style="position: relative; outline: none;">
+                                    <div class="CodeMirror-measure">
+                                        <pre><span>{</span></pre>
+                                    </div>
+                                    <div style="position: relative; z-index: 1; display: none;"></div>
+                                    <div class="CodeMirror-code" style="">
+                                        <div style="position: relative;">
+                                            <div style="position: absolute; left: -28.993px;">
+                                                <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">1</div>
+                                            </div>
+                                            <pre>{</pre>
+                                        </div>
+                                        <div style="position: relative;">
+                                            <div style="position: absolute; left: -28.993px;">
+                                                <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">2</div>
+                                            </div>
+                                            <pre>  <span class="cm-string cm-property">"type"</span>: <span class="cm-string">"FeatureCollection"</span>,</pre>
+                                        </div>
+                                        <div style="position: relative;">
+                                            <div style="position: absolute; left: -28.993px;">
+                                                <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">3</div>
+                                            </div>
+                                            <pre>  <span class="cm-string cm-property">"features"</span>: []</pre>
+                                        </div>
+                                        <div style="position: relative;">
+                                            <div style="position: absolute; left: -28.993px;">
+                                                <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">4</div>
+                                            </div>
+                                            <pre>}</pre>
+                                        </div>
+                                    </div>
+                                    <div class="CodeMirror-cursor" style="left: 3.99304px; top: 2.22222px; height: 16.6667px; visibility: hidden;">
+                                        &nbsp;</div>
+                                    <div class="CodeMirror-cursor CodeMirror-secondarycursor" style="display: none; visibility: hidden;">&nbsp;</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="position: absolute; height: 30px; width: 1px; top: 96.8889px;"></div>
+                    <div class="CodeMirror-gutters" style="height: 664px;">
+                        <div class="CodeMirror-gutter error"></div>
+                        <div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 28px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- header section-RIGHT -->
+
+    <!-- right-side hide-show button-->
+    <!-- <button onclick="myFunction()"><i class="fas fa-caret-up"></i></button>
+    <div id="myDIV">
+
+    </div>
+    <script>
+        function myFunction() {
+            var x = document.getElementById("myDIV");
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
+        }
+    </script> -->
+    <!--right-side hide-show button -->
+
+    <!-- bootstrap library JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <!-- bootstrap library JS -->
+
 </body>
 
 </html>

@@ -11,13 +11,30 @@
 }
 
 .leaflet-control-container {
-    position: absolute;
-    right: 56px;
+    /* position: absolute;
+    right: 56px; */
+    display: contents;
 }
 
-.leaflet-control {
+.leaflet-left {
+    margin-top: 50px;
+    margin-left: 980px;
+}
+
+
+/* .leaflet-control {
     float: right;
     clear: both;
     margin-top: -630px;
     margin-right: 20px;
+} */
+
+.leaflet-control-scale-line {
+    margin-top: 620px;
+    margin-right: -40px;
+}
+
+.leaflet-draw-toolbar a {
+    background-image: url(C:\Users\TRILOK\Desktop/newpic.jpg);
+    background-repeat: no-repeat;
 }
