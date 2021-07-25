@@ -1,0 +1,24 @@
+.layer-switch {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    z-index: 1000;
+    background-color: #fff;
+}
+
+button {
+    border: none;
+    background: #fff;
+    color: black;
+    font-size: inherit;
+    outline: none;
+}
+
+.pad0x {
+    padding: 2px 5px;
+}
+
+.selected {
+    color: white;
+    background: rgb(52, 73, 94);
+}

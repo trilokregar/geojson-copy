@@ -1,40 +1,30 @@
-#mapid {
-    height: 100%;
-}
-
-.inline {
-    display: inline-flex;
-}
-
-.file-bar {
-    display: flex;
-}
-
-.leaflet-control-container {
-    /* position: absolute;
-    right: 56px; */
-    display: contents;
-}
-
-.leaflet-left {
-    margin-top: 50px;
-    margin-left: 980px;
-}
-
-
-/* .leaflet-control {
-    float: right;
-    clear: both;
-    margin-top: -630px;
-    margin-right: 20px;
-} */
-
-.leaflet-control-scale-line {
-    margin-top: 620px;
-    margin-right: -40px;
-}
-
-.leaflet-draw-toolbar a {
-    background-image: url(C:\Users\TRILOK\Desktop/newpic.jpg);
-    background-repeat: no-repeat;
-}
+  body#geojsonio-body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
+      font-size: 15px;
+      line-height: 20px;
+      color: #222;
+      -webkit-font-smoothing: antialiased;
+  }
+  
+  #map {
+      height: 100%;
+  }
+  
+  #infoi {
+      z-index: 1;
+      position: absolute;
+  }
+  
+  .parent {
+      width: 100%;
+  }
+  
+  .parent #map {
+      width: 60%;
+  }
+  
+  .parent .right {
+      width: 40%;
+  }

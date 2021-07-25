@@ -3,286 +3,443 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1">
 
-    <!-- bootstrap library CSS -->
+    <!-- bootstrap CSS-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <!-- bootstrap library CSS -->
+    <!-- bootstrap CSS-->
 
-    <!-- leaflet mapping -->
+    <link href="css/geojson.css" rel="stylesheet">
+    <link href="css/LHeading.css" rel="stylesheet">
+    <link href="css/RHeading.css" rel="stylesheet">
+    <link href="css/base.css" rel="stylesheet">
+    <link href="css/layerSwitch.css" rel="stylesheet">
+    <link href="css/toolbar.css" rel="stylesheet">
+
+
+    <title>geojson.io</title>
+    <link rel="icon" type="image/x-icon" href="C:\Users\TRILOK\Desktop\geojson UI\img/favicon.png">
+
+
+    <!-- Leaflet mapping -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
-    <!-- leaflet mapping -->
+    <!-- Leaflet mapping -->
 
-    <!-- font awesome -->
-    <script src="https://kit.fontawesome.com/0fd876c987.js" crossorigin="anonymous"></script>
-    <!-- font awesome -->
+    <!-- font-awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+    <!-- font-awesome -->
 
-    <!-- AdminLTE -->
-    <!-- <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/js/adminlte.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/css/adminlte.min.css"> -->
-    <!-- AdminLTE -->
-
-    <link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/fonts/mplus.css">
-    <title>geojson.io</title>
-    <link href="lib/draw/leaflet.draw.css" rel="stylesheet">
-    <!-- <link href="lib/codemirror/lib/codemirror.css" rel="stylesheet"> -->
-    <link href="css/base.css" rel="stylesheet">
-    <!-- <link href="css/marker.css" rel="stylesheet"> -->
-    <!-- <link href="css/github_browse.css" rel="stylesheet"> -->
-    <link href="css/site.css" rel="stylesheet">
-    <!-- css/site.css is used for UI division -->
-    <!-- <link href="css/theme.css" rel="stylesheet"> -->
-    <link href="css/geojson.css" rel="stylesheet">
-    <link rel="icon" type="image/x-icon" href="C:/Users/TRILOK/Desktop/geojson/img/favicon.png">
-    <!-- <meta name="author" content="MapBox"> -->
-    <!-- <meta name="description" content="simply edit geojson map data"> -->
-    <!-- <meta property="og:site_name" content="geojson.io"> -->
-    <!-- <meta name="viewport" content="initial-scale=1,maximum-scale=1"> -->
-    <!--[if lt IE 9]>
-      <script type='text/javascript' src='lib/aight.min.js'></script>
-    <![endif]-->
-    <script async src="https://www.google-analytics.com/analytics.js"></script>
-    <script src="lib/mapbox.js/latest/mapbox.js"></script>
-    <script src="lib/raven.min.js"></script>
-    <meta http-equiv="Content-Security-Policy" content="
-      default-src
-        'self'
-        ;
-      child-src
-        'self'
-        blob:
-        ;
-      connect-src
-        'self'
-        *
-        ;
-      font-src
-        'self'
-        ;
-      frame-src
-        'self'
-        ;
-      img-src
-        'self'
-        data:
-        *
-        ;
-      script-src
-        'self'
-        'unsafe-eval'
-        'unsafe-inline'
-        https://cdn.segment.com
-        https://assets.customer.io
-        https://secure.gaug.es
-        https://www.google-analytics.com
-        ;
-      style-src
-        'self'
-        'unsafe-inline'
-        ;
-    ">
-    <!-- <script>
-        if (/a\.tiles\.mapbox\.com/.test(L.mapbox.config.HTTP_URL)) {
-            Raven.config('https://c2d096c944dd4150ab7e44b0881b4a46@app.getsentry.com/11480', {
-                whitelistUrls: [/geojson\.io/],
-                ignoreErrors: [
-                    'Uncaught Error: Error connecting to extension ckibcdccnfeookdmbahgiakhnjcddpki',
-                    'Uncaught Error: Error connecting to extension pioclpoplcdbaefihamjohnefbikjilc'
-                ]
-            }).install();
-        }
-    </script> -->
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-        }
-        
-        #map {
-            height: 100%;
-        }
-    </style>
+    <!-- leaflet-geocoder for search button -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+    <!-- leaflet-geocoder for search button -->
 </head>
 
-<body>
+<body id="geojsonio-body" style="display: block;" dropzone="copy">
+    <div class="geojsonio parent">
 
-    <div id="map"></div>
-    <script>
-        var map = L.map('map').setView([51.505, -0.09], 13);
+        <div id="map">
 
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map);
-
-        // marker on map //
-        var marker = L.marker([25.902018232132814, 74.69011710877476]).addTo(map);
-        marker.bindPopup("<b> Hello world!!</b > <br>this is my HOUSE.").openPopup();
-        // marker on map //
-    </script>
-
-    <!--header section LEFT-->
-    <div class="file-bar">
-        <div class="inline">
-            <div class="item"><a class="parent"> Open</a>
-                <div class="children"><a title="GeoJSON, TopoJSON, GTFS, KML, CSV, GPX and OSM XML supported">File</a><a title="GeoJSON files in GitHub Repositories">GitHub</a><a title="GeoJSON files in GitHub Gists">Gist</a></div>
+            <!-- layer-switch -->
+            <div class="layer-switch">
+                <button class="pad0x">Leaflet</button>
+                <button class="pad0x">Setellite</button>
+                <button class="pad0x selected">OSM</button>
             </div>
-            <div class="item"><a class="parent"> Save</a>
-                <div class="children"><a title="GeoJSON files in GitHub Repositories">GitHub</a><a title="GeoJSON files in GitHub Gists">Gist</a><a>GeoJSON</a><a>TopoJSON</a><a>CSV</a><a>KML</a><a>WKT</a><a>Shapefile</a>
+            <!-- layer-switch -->
+
+            <!-- rightside tool-bar -->
+            <div class="leaflet-top leaflet-right" style="margin-top: 107px;">
+                <div class="leaflet-draw leaflet-control">
+                    <div class="leaflet-draw-section">
+                        <div class="leaflet-draw-toolbar leaflet-bar leaflet-draw-toolbar-top">
+                            <a class="leaflet-draw-draw-polyline" href="#" title="Draw a polyline"></a>
+                            <a class="leaflet-draw-draw-polygon" href="#" title="Draw a polygon"></a>
+                            <a class="leaflet-draw-draw-rectangle" href="#" title="Draw a rectangle"></a>
+                            <a class="leaflet-draw-draw-marker" href="#" title="Draw a marker"></a>
+                        </div>
+                        <ul class="leaflet-draw-actions"></ul>
+                    </div>
+                    <div class="leaflet-draw-section">
+                        <div class="leaflet-draw-toolbar leaflet-bar">
+                            <a class="leaflet-draw-edit-edit leaflet-disabled" href="#" title="No layers to edit."></a>
+                            <a class="leaflet-draw-edit-remove leaflet-disabled" href="#" title="No layers to delete."></a>
+                        </div>
+                        <ul class="leaflet-draw-actions"></ul>
+                    </div>
                 </div>
             </div>
-            <div class="item"><a class="parent"> New</a></div>
-            <div class="item"><a class="parent"> Share</a></div>
-            <div class="item"><a class="parent"> Meta</a>
-                <div class="children"><a title="Add a custom tile layer">Add map layer</a><a title="Zoom to the extent of all features">Zoom to features</a><a title="Delete all features from the map">Clear</a><a title="Add random points to your map">Random: Points</a><a title="Add bounding box members to all applicable GeoJSON objects">Add bboxes</a>
-                    <a title="Flatten MultiPolygons, MultiLines, and GeometryCollections into simple geometries">Flatten
-                        Multi Features</a><a>Load encoded polyline</a><a>Load WKB Base64 Encoded String</a><a>Load WKB
-                        Hex Encoded String</a><a>Load WKT String</a>
-                </div>
-            </div>
-        </div>
-        <div class="name">
-            <a target="_blank"></a><i class="far fa-file"></i><span class="filename deemphasize">unsaved</span>
-        </div>
-    </div>
-    <!--header section-->
+            <!-- rightside tool-bar -->
 
-    <!-- side nav bar includes shapes-edit-delete -->
-    <div class="leaflet-top leaflet-right" style="margin-top: 120px; margin-right: 10px;">
-        <div class="leaflet-control-grid map-tooltip leaflet-control" style="display: none;"><a class="close" href="#" title="close">close</a>
-            <div class="map-tooltip-content"></div>
-        </div>
-        <div class="leaflet-control-mapbox-geocoder leaflet-bar leaflet-control"><a class="leaflet-control-mapbox-geocoder-toggle mapbox-icon mapbox-icon-geocoder" href="#">&nbsp;</a>
-            <div class="leaflet-control-mapbox-geocoder-results"></div>
-            <div class="leaflet-control-mapbox-geocoder-wrap">
-                <form class="leaflet-control-mapbox-geocoder-form"><input class="" type="text" placeholder="Search">
-                </form>
-            </div>
-        </div>
-        <div class="leaflet-control-zoom leaflet-bar leaflet-control"></div>
-        <div class="leaflet-draw leaflet-control">
-            <div class="leaflet-draw-section">
-                <div class="leaflet-draw-toolbar leaflet-bar leaflet-draw-toolbar-top">
-                    <a class="leaflet-draw-draw-polyline" href="#" title="Draw a polyline"></a>
-                    <a class="leaflet-draw-draw-polygon" href="#" title="Draw a polygon"></a>
-                    <a class="leaflet-draw-draw-rectangle" href="#" title="Draw a rectangle"></a>
-                    <a class="leaflet-draw-draw-marker" href="#" title="Draw a marker"></a>
-                </div>
-                <ul class="leaflet-draw-actions"></ul>
-            </div>
-            <div class="leaflet-draw-section">
-                <div class="leaflet-draw-toolbar leaflet-bar">
-                    <a class="leaflet-draw-edit-edit leaflet-disabled" href="#" title="No layers to edit."></a>
-                    <a class="leaflet-draw-edit-remove leaflet-disabled" href="#" title="No layers to delete."></a>
-                </div>
-                <ul class="leaflet-draw-actions"></ul>
-            </div>
-        </div>
-    </div>
-    <!-- side nav bar includes shapes-edit-delete -->
 
-    <!-- mapbox setellite OSM -->
-    <div class="layer-switch"><button class="pad0x active">Leaflet</button><button class="pad0x">Satellite</button><button class="pad0x">OSM</button></div>
-    <!-- mapbox setellite OSM -->
-
-    <!-- header section-RIGHT -->
-    <div class="right">
-        <div class="top"><button class="collapse-button" title="Collapse">
-                <i class="fas fa-caret-up"></i>
-            </button>
-            <div class="user fr pad1 deemphasize"><a target="_blank" href="#">anon</a><span> | </span><a href="#">login</a></div>
-            <div class="buttons"><button title="JSON Source" class="active"><span class="icon-code"></span><span>
-                        JSON</span></button><button title="Edit feature properties in a table"><span
-                        class="icon-table"></span><span> Table</span></button><button title="Help"><span
-                        class="icon-question"></span><span> Help</span></button></div>
         </div>
-        <div class="pane"><textarea style="display: none;"></textarea>
-            <div class="CodeMirror cm-s-eclipse">
-                <div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 6.21528px; left: 32.9861px;">
-                    <textarea autocorrect="off" autocapitalize="off" spellcheck="false" style="position: absolute; padding: 0px; width: 1000px; height: 1em; outline: none; font-size: 4px;" tabindex="0"></textarea></div>
-                <div class="CodeMirror-hscrollbar" style="left: 29px;">
-                    <div style="height: 1px;"></div>
+
+
+
+
+        <script>
+            var map = L.map('map').setView([0, 0], 3);
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+
+
+            // search-button //
+            L.Control.geocoder().addTo(map);
+            // search-button //
+
+
+            // marker on map //
+            // L.marker([25.902013102476744, 74.69018368371563]).addTo(map)
+            //     .bindPopup('PopUp shows <br> My HOUSE.')
+            //     .openPopup();
+            // marker on map //
+
+            //  remove zoomcontrol //
+            map.removeControl(map.zoomControl);
+            //  remove zoomcontrol //
+
+            // add zoomcontrol to desired location //
+            new L.Control.Zoom({
+                position: 'topright'
+            }).addTo(map);
+            // add zoomcontrol to desired location //
+
+            // scale //
+            L.control.scale({
+                metric: true,
+                imperial: true,
+                position: 'bottomright'
+            }).addTo(map);
+            // scale //
+
+            // search //
+            var searchControl = new L.esri.Controls.Geosearch().addTo(map);
+            var results = new L.LayerGroup().addTo(map);
+
+            searchControl.on('results', function(data) {
+                results.clearLayers();
+                for (var i = data.results.length - 1; i >= 0; i--) {
+                    results.addLayer(L.marker(data.results[i].latlng));
+                }
+            });
+
+            setTimeout(function() {
+                $('.pointer').fadeOut('slow');
+            }, 3400);
+            // search //
+        </script>
+
+
+        <!-- left header self-edited -->
+        <div class="file-bar">
+            <div class="box1 lh-base">
+                <div class="dropdown">
+                    <button class="dropbtn">Open</button>
+                    <div class="dropdown-content" style="min-width: 60px;">
+                        <a title="GeoJSON, TopoJSON, GTFS, KML, CSV, GPX and OSM XML supported">File</a>
+                        <a title="GeoJSON files in GitHub Repositories">GitHub</a>
+                        <a title="GeoJSON files in GitHub Gists">Gist</a>
+                    </div>
                 </div>
-                <div class="CodeMirror-vscrollbar">
-                    <div style="width: 1px;"></div>
+
+                <div class="dropdown">
+                    <button class="dropbtn">Save</button>
+                    <div class="dropdown-content" style="min-width: 60px;">
+                        <a title="GeoJSON files in GitHub Repositories">GitHub</a>
+                        <a title="GeoJSON files in GitHub Gists">Gist</a>
+                        <a>GeoJSON</a>
+                        <a>TopoJSON</a>
+                        <a>CSV</a>
+                        <a>KML</a>
+                        <a>WKT</a>
+                        <a>Shapefile</a>
+                    </div>
                 </div>
-                <div class="CodeMirror-scrollbar-filler"></div>
-                <div class="CodeMirror-gutter-filler"></div>
-                <div class="CodeMirror-scroll" tabindex="-1">
-                    <div class="CodeMirror-sizer" style="min-width: 284.389px; margin-left: 29px; min-height: 96.8889px;">
-                        <div style="position: relative; top: 0px;">
-                            <div class="CodeMirror-lines">
-                                <div style="position: relative; outline: none;">
-                                    <div class="CodeMirror-measure">
-                                        <pre><span>{</span></pre>
+
+                <div class="dropdown">
+                    <button class="dropbtn">New</button>
+                </div>
+
+                <div class="dropdown">
+                    <button class="dropbtn">Share</button>
+                </div>
+
+                <div class="dropdown">
+                    <button class="dropbtn">Meta</button>
+                    <div class="dropdown-content">
+                        <a title="Add a custom tile layer">Add map layer</a>
+                        <a title="Zoom to the extent of all features">Zoom to features</a>
+                        <a title="Delete all features from the map">Clear</a>
+                        <a title="Add random points to your map">Random: Points</a>
+                        <a title="Add bounding box members to all applicable GeoJSON objects">Add bboxes</a>
+                        <a title="Flatten MultiPolygons, MultiLines, and GeometryCollections into simple geometries">Flatten Multi Features</a>
+                        <a>Load encoded polyline</a>
+                        <a>Load WKB Base64 Encoded String</a>
+                        <a>Load WKB Hex Encoded String</a>
+                        <a>Load WKT String</a>
+                    </div>
+                </div>
+                <div class="name pt-2">
+                    <a target="_blank"></a><i class="far fa-file"></i>
+                    <span class="filename">unsaved</span></div>
+            </div>
+        </div>
+        <!-- left header self-edited -->
+
+
+        <!-- right header self-edited -->
+        <div class="right">
+            <div class="top tab-height">
+                <!-- collapse section -->
+                <a class="coll btn" data-bs-toggle="collapse" href="#collapse-content" role="button" aria-expanded="false" aria-controls="collapse-content"><i class="fas fa-caret-up"></i></a>
+
+                <div class="collapse" id="collapse-content" style="margin-top: -43px; width: 58%;">
+                    <!-- tabs -->
+                    <nav style="margin-left: 28px; height: 0px;">
+                        <div class="nav" id="nav-tab" role="tablist">
+                            <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true"><i class="fas fa-code"></i><span> JSON</span></button>
+                            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="fas fa-table"></i><span> Table</span></button>
+                            <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false"><i class="fas fa-question"></i><span> Help</span></button>
+                        </div>
+                    </nav>
+                    <div class="tab-content" id="nav-tabContent">
+
+                        <!-- for active JSON -->
+                        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                            <div class="pane"><textarea style="display: none;"></textarea>
+                                <div class="CodeMirror">
+                                    <div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 6.21528px; left: 32.9861px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" style="position: absolute; padding: 0px; width: 1000px; height: 1em; outline: none; font-size: 4px;" tabindex="0"></textarea></div>
+                                    <div class="CodeMirror-hscrollbar" style="left: 29px;">
+                                        <div style="height: 1px;"></div>
                                     </div>
-                                    <div style="position: relative; z-index: 1; display: none;"></div>
-                                    <div class="CodeMirror-code" style="">
-                                        <div style="position: relative;">
-                                            <div style="position: absolute; left: -28.993px;">
-                                                <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">1</div>
+                                    <div class="CodeMirror-vscrollbar">
+                                        <div style="width: 1px;"></div>
+                                    </div>
+                                    <div class="CodeMirror-scrollbar-filler"></div>
+                                    <div class="CodeMirror-gutter-filler"></div>
+                                    <div class="CodeMirror-scroll" tabindex="-1">
+                                        <div class="CodeMirror-sizer" style="min-width: 284.389px; margin-left: 29px; min-height: 96.8889px;">
+                                            <div style="position: relative; top: 0px;">
+                                                <div class="CodeMirror-lines">
+                                                    <div style="position: relative; outline: none;">
+                                                        <div class="CodeMirror-measure"><pre><span>{</span></pre></div>
+                                                        <div style="position: relative; z-index: 1; display: none;"></div>
+                                                        <div class="CodeMirror-code">
+                                                            <div style="position: relative;">
+                                                                <div style="position: absolute; left: -28.993px;">
+                                                                    <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">1</div>
+                                                                </div><pre>{</pre></div>
+                                                            <div style="position: relative;">
+                                                                <div style="position: absolute; left: -28.993px;">
+                                                                    <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">2</div>
+                                                                </div><pre>  <span class="cm-string cm-property">"type"</span>: <span class="cm-string">"FeatureCollection"</span>,</pre></div>
+                                                            <div style="position: relative;">
+                                                                <div style="position: absolute; left: -28.993px;">
+                                                                    <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">3</div>
+                                                                </div><pre>  <span class="cm-string cm-property">"features"</span>: []</pre></div>
+                                                            <div style="position: relative;">
+                                                                <div style="position: absolute; left: -28.993px;">
+                                                                    <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">4</div>
+                                                                </div><pre>}</pre></div>
+                                                        </div>
+                                                        <div class="CodeMirror-cursor" style="left: 3.99304px; top: 2.22222px; height: 16.6667px; visibility: hidden;">&nbsp;</div>
+                                                        <div class="CodeMirror-cursor CodeMirror-secondarycursor" style="display: none; visibility: hidden;">&nbsp;</div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <pre>{</pre>
                                         </div>
-                                        <div style="position: relative;">
-                                            <div style="position: absolute; left: -28.993px;">
-                                                <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">2</div>
-                                            </div>
-                                            <pre>  <span class="cm-string cm-property">"type"</span>: <span class="cm-string">"FeatureCollection"</span>,</pre>
-                                        </div>
-                                        <div style="position: relative;">
-                                            <div style="position: absolute; left: -28.993px;">
-                                                <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">3</div>
-                                            </div>
-                                            <pre>  <span class="cm-string cm-property">"features"</span>: []</pre>
-                                        </div>
-                                        <div style="position: relative;">
-                                            <div style="position: absolute; left: -28.993px;">
-                                                <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">4</div>
-                                            </div>
-                                            <pre>}</pre>
+                                        <div style="position: absolute; height: 30px; width: 1px; top: 96.8889px;"></div>
+                                        <div class="CodeMirror-gutters" style="height: 664px;">
+                                            <div class="CodeMirror-gutter error"></div>
+                                            <div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 28px;"></div>
                                         </div>
                                     </div>
-                                    <div class="CodeMirror-cursor" style="left: 3.99304px; top: 2.22222px; height: 16.6667px; visibility: hidden;">
-                                        &nbsp;</div>
-                                    <div class="CodeMirror-cursor CodeMirror-secondarycursor" style="display: none; visibility: hidden;">&nbsp;</div>
                                 </div>
                             </div>
                         </div>
+                        <!-- for active JSON -->
+
+                        <!-- for active TABLE -->
+                        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            <div class="pane">
+                                <div class="blank-banner center">no features</div>
+                            </div>
+                        </div>
+                        <!-- for active TABLE -->
+
+                        <!-- for active HELP -->
+                        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                            <div class="pane">
+                                <div class="pad2 prose">
+                                    <h2>Help</h2>
+
+                                    <p>New here? <strong>geojson.io</strong> is a quick, simple tool for creating, viewing, and sharing maps. geojson.io is named after <a href="http://geojson.org/" target="_blank">GeoJSON</a>, an open source data format,
+                                        and it supports GeoJSON in all ways - but also accepts KML, GPX, CSV, GTFS, TopoJSON, and other formats.</p>
+
+                                    <p>Need extra help or see a bug? <a target="_blank" href="https://github.com/mapbox/geojson.io/issues?state=open">Open an issue
+                        on geojson.io's issue tracker.</a>
+
+                                    </p>
+                                    <h3>I've got data</h3>
+
+                                    <p>If you have data, like a KML, GeoJSON, or CSV file, just drag &amp; drop it onto the page or click 'Open' and 'File' - your data should appear on the map!</p>
+
+                                    <h3>I want to draw features</h3>
+
+                                    <p>Click the drawing tools on the left-hand side to draw points, polygons, lines and rectangles. After you're done drawing the shapes, you can add information to each feature by clicking on it, editing the feature's properties,
+                                        and clicking 'Save'.
+                                    </p>
+
+                                    <p>Properties in GeoJSON are stored as 'key value pairs' - so, for instance, if you wanted to add a name to each feature, type 'name' in the first table field, and the name of the feature in the second.</p>
+
+                                    <h3>I want to use my map everywhere</h3>
+
+                                    <p>You can share maps in quite a few ways! If you save your map here, the URL of this page will update and you can link send friends the link to share the map, or you can click 'Download' to grab the raw GeoJSON data and
+                                        use it in other software, like TileMill or Leaflet.</p>
+
+                                    <h3>I'm a coder</h3>
+
+                                    <p><a href="#geojson-io-api">geojson.io has an array of cli tools</a> that make it easy to go from a GeoJSON file on your computer to geojson.io.
+
+                                    </p>
+                                    <h3>Protips?</h3>
+
+                                    <ul>
+                                        <li><strong>cmd+s</strong>: save map to github gists
+                                        </li>
+                                        <li><strong>cmd+a</strong>: download map as geojson
+                                        </li>
+                                        <li><strong>arrow keys</strong>: navigate the map
+                                        </li>
+                                    </ul>
+
+                                    <h3>Privacy &amp; License Issues</h3>
+
+                                    <ul>
+                                        <li><strong>Clicking save</strong> by default saves to a private GitHub Gist - so it will only be accessible to people you share the URL with, and creating it won't appear in your GitHub timeline.
+                                        </li>
+                                        <li><strong>The data you create and modify in geojson.io</strong> doesn't acquire any additional license: if it's secret and copyrighted, it will remain that way - it doesn't have to be public or open source.
+                                        </li>
+                                    </ul>
+                                    <br>
+                                    <hr><br>
+                                    <h2 id="geojson-io-api">Geojson.io API</h2>
+                                    <p>You can interact with geojson.io programmatically in two ways:</p>
+                                    <ul>
+                                        <li><a href="#url-api">URL parameters</a></li>
+                                        <li><a href="#console-api">Browser console</a></li>
+                                        <li><a href="#protips">Protips</a></li>
+                                    </ul>
+                                    <h2 id="url-api">URL API</h2>
+                                    <p>You can do a few interesting things with just URLs and geojson.io. Here are the current URL formats.</p>
+                                    <h3 id="-map-">
+                                        <pcode>map</pcode>
+                                    </h3>
+                                    <p>Open the map at a specific location. The argument is numbers separated by
+                                        <pcode>/</pcode> in the form
+                                        <pcode>zoom/latitude/longitude</pcode>.</p>
+                                    <h4 id="example-">Example:</h4>
+                                    <p><a href="http://geojson.io/#map=2/20.0/0.0">http://geojson.io/#map=2/20.0/0.0</a></p>
+                                    <h3 id="-data-data-application-json-">
+                                        <pcode>data=data:application/json,</pcode>
+                                    </h3>
+                                    <p>Open the map and load a chunk of <a href="http://geojson.org/">GeoJSON</a> data from a URL segment directly onto the map. The GeoJSON data should be encoded as per
+                                        <pcode>encodeURIComponent(JSON.stringify(geojson_data))</pcode>.</p>
+                                    <h4 id="example-">Example:</h4>
+                                    <p><a href="http://geojson.io/#data=data:application/json,%7B%22type%22%3A%22LineString%22%2C%22coordinates%22%3A%5B%5B0%2C0%5D%2C%5B10%2C10%5D%5D%7D">http://geojson.io/#data=data:application/json,%7B%22type%22%3A%22LineString%22%2C%22coordinates%22%3A%5B%5B0%2C0%5D%2C%5B10%2C10%5D%5D%7D</a></p>
+                                    <h3 id="-data-data-text-x-url-">
+                                        <pcode>data=data:text/x-url,</pcode>
+                                    </h3>
+                                    <p>Load GeoJSON data from a URL on the internet onto the map. The URL must refer directly to a resource that is:</p>
+                                    <ul>
+                                        <li>Freely accessible (not behind a password)</li>
+                                        <li>Supports <a href="http://en.wikipedia.org/wiki/Cross-origin_resource_sharing">CORS</a></li>
+                                        <li>Is valid GeoJSON</li>
+                                    </ul>
+                                    <p>The URL should be encoded as per
+                                        <pcode>encodeURIComponent(url)</pcode>.</p>
+                                    <h4 id="example-">Example:</h4>
+                                    <p><a href="http://geojson.io/#data=data:text/x-url,http%3A%2F%2Fapi.tiles.mapbox.com%2Fv3%2Ftmcw.map-gdv4cswo%2Fmarkers.geojson">http://geojson.io/#data=data:text/x-url,http%3A%2F%2Fapi.tiles.mapbox.com%2Fv3%2Ftmcw.map-gdv4cswo%2Fmarkers.geojson</a></p>
+                                    <h3 id="-id-gist-">
+                                        <pcode>id=gist:</pcode>
+                                    </h3>
+                                    <p>Load GeoJSON data from a <a href="https://gist.github.com/">GitHub Gist</a>, given an argument in the form of
+                                        <pcode>login/gistid</pcode>. The Gist can be public or private, and must contain a file with a
+                                        <pcode>.geojson</pcode> extension that is valid GeoJSON.</p>
+                                    <h4 id="example-">Example:</h4>
+                                    <p><a href="http://geojson.io/#id=gist:tmcw/e9a29ad54dbaa83dee08&amp;map=8/39.198/-76.981">http://geojson.io/#id=gist:tmcw/e9a29ad54dbaa83dee08&amp;map=8/39.198/-76.981</a></p>
+                                    <h3 id="-id-github-">
+                                        <pcode>id=github:</pcode>
+                                    </h3>
+                                    <p>Load a file from a GitHub repository. You must have access to the file, and it must be valid GeoJSON.</p>
+                                    <p>The url is in the form:</p>
+                                    <pre><pcode>login/repository/blob/branch/filepath
+                    </pcode></pre>
+                                    <h4 id="example-">Example:</h4>
+                                    <p><a href="http://geojson.io/#id=github:benbalter/dc-wifi-social/blob/master/bars.geojson&amp;map=14/38.9140/-77.0302">http://geojson.io/#id=github:benbalter/dc-wifi-social/blob/master/bars.geojson&amp;map=14/38.9140/-77.0302</a></p>
+                                    <h2 id="console-api">Console API</h2>
+                                    <p><a href="http://debugbrowser.com/">Pop open your browser console</a> and see the beautiful examples: geojson.io has started to expose a subset of its inner workings for you to mess around with:</p>
+                                    <h3 id="-window-api-map-">
+                                        <pcode>window.api.map</pcode>
+                                    </h3>
+                                    <p>The <a href="http://leafletjs.com/">Leaflet</a> map that you see and use on the site. See the <a href="http://leafletjs.com/reference.html">Leaflet API</a> for all the things you can do with it.</p>
+                                    <p>For instance, you could add another map layer:</p>
+                                    <pre><pcode class="lang-js">window.api.map.addLayer(L.tileLayer('http://tile.stamen.com/watercolor/{z}/{x}/{y}.jpg'))
+                    </pcode></pre>
+                                    <h3 id="-window-api-data-">
+                                        <pcode>window.api.data</pcode>
+                                    </h3>
+                                    <p>The data model. See the <a href="https://github.com/mapbox/geojson.io/blob/gh-pages/src/core/data.js#L48-L90">code to get an idea of how it works</a> - you'll want to use stuff like
+                                        <pcode>data.set({ map: { .. your geojson map information .. })</pcode> and
+                                        <pcode>data.get('map')</pcode> and
+                                        <pcode>data.mergeFeatures([arrayoffeatures])</pcode> to do your dirty business.</p>
+                                    <h2 id="-window-api-maplayer-">
+                                        <pcode>window.api.mapLayer</pcode>
+                                    </h2>
+                                    <p>This is the Leaflet featureGroup that gets filled with features as you draw them. You can operate on this directly to do advanced stuff like selecting a feature with its id:</p>
+                                    <pre><pcode class="lang-js">var layers = [];window.api.mapLayer.eachLayer(l =&gt; { layers.push(l); });layers.find(l =&gt; l.feature.id == 'a').openPopup();
+                    </pcode></pre>
+                                    <p>That example uses <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions">arrow functions</a> which are supported in Chrome &amp; Firefox.</p>
+                                    <h2 id="-window-api-drawcontrol-">
+                                        <pcode>window.api.drawControl</pcode>
+                                    </h2>
+                                    <p>Exposes the <a href="https://github.com/Leaflet/Leaflet.draw">Leaflet.Draw</a> control instance in the console.</p>
+                                    <h2 id="-window-api-on-event-fn-">
+                                        <pcode>window.api.on(event, fn)</pcode>
+                                    </h2>
+                                    <p>Exposes d3 events, including
+                                        <pcode>change</pcode>.</p>
+                                    <h2 id="protips">Protips</h2>
+                                    <p>To include
+                                        <pcode>turf</pcode> from <a href="https://github.com/turfjs/turf">turf</a> so you can manipulate features with its GIS features, run this in the CLI, which will download the script and evaluate it.</p>
+                                    <pre><pcode class="lang-js">fetch('https://npmcdn.com/@turf/turf@3.1.1/turf.js').then(t =&gt; t.text()).then(eval)
+                    </pcode></pre>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- for active HELP -->
+
                     </div>
-                    <div style="position: absolute; height: 30px; width: 1px; top: 96.8889px;"></div>
-                    <div class="CodeMirror-gutters" style="height: 664px;">
-                        <div class="CodeMirror-gutter error"></div>
-                        <div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 28px;"></div>
-                    </div>
+                    <!-- tabs -->
                 </div>
+                <!-- collapse section -->
+
+                <!-- user pad -->
+                <div class="fr pad1 deemphasize"><a target="_blank" href="#">anon</a><span> | </span><a href="#">login</a></div>
+                <!-- user pad -->
+
             </div>
         </div>
-    </div>
-    <!-- header section-RIGHT -->
+        <!-- right header self-edited -->
 
-    <!-- right-side hide-show button-->
-    <!-- <button onclick="myFunction()"><i class="fas fa-caret-up"></i></button>
-    <div id="myDIV">
 
-    </div>
-    <script>
-        function myFunction() {
-            var x = document.getElementById("myDIV");
-            if (x.style.display === "none") {
-                x.style.display = "block";
-            } else {
-                x.style.display = "none";
-            }
-        }
-    </script> -->
-    <!--right-side hide-show button -->
 
-    <!-- bootstrap library JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <!-- bootstrap library JS -->
-
+        <!-- bootstrap JS -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        <!-- bootstrap JS -->
 </body>
 
 </html>

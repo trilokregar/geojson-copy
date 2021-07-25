@@ -1,0 +1,73 @@
+@media screen and (max-width: 1100px) {
+    .file-bar {
+        right: 50%;
+    }
+}
+
+.file-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    box-sizing: border-box;
+    line-height: 25px;
+    z-index: 1000;
+    display: inline-flex;
+}
+
+.dropbtn {
+    background-color: #fff;
+    color: blue;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    color: blue;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 5px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+a:hover {
+    background: rgb(52, 73, 94);
+    color: #fff !important;
+}
+
+.box1 {
+    padding: 0;
+    height: 40px;
+    display: flex;
+    background: #fff;
+}
+
+.box1 div button {
+    padding: 7px;
+    margin-top: 1px;
+}
+
+.file-bar .name {
+    padding: 0 10px;
+    display: inline-block;
+    vertical-align: top;
+    background: #fff;
+}
+
+.dropbtn:hover {
+    background: rgb(52, 73, 94);
+    color: #fff !important;
+}
