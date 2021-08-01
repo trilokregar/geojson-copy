@@ -1,24 +1,17 @@
-.layer-switch {
-    position: absolute;
+#layer-switch {
+    position: fixed;
     bottom: 0px;
     left: 0px;
     z-index: 1000;
     background-color: #fff;
 }
 
-button {
+.btn {
     border: none;
     background: #fff;
     color: black;
     font-size: inherit;
     outline: none;
-}
-
-.pad0x {
+    border-radius: 0px;
     padding: 2px 5px;
-}
-
-.selected {
-    color: white;
-    background: rgb(52, 73, 94);
 }

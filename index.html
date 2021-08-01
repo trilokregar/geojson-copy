@@ -10,19 +10,20 @@
     <!-- bootstrap CSS-->
 
     <link href="css/geojson.css" rel="stylesheet">
-    <link href="css/LHeading.css" rel="stylesheet">
-    <link href="css/RHeading.css" rel="stylesheet">
+    <link href="css/headingLeft.css" rel="stylesheet">
+    <link href="css/headingRight.css" rel="stylesheet">
     <link href="css/base.css" rel="stylesheet">
     <link href="css/layerSwitch.css" rel="stylesheet">
     <link href="css/toolbar.css" rel="stylesheet">
+    <link href="css/geocoderSearch.css" rel="stylesheet">
 
 
     <title>geojson.io</title>
-    <link rel="icon" type="image/x-icon" href="C:\Users\TRILOK\Desktop\geojson UI\img/favicon.png">
+    <link rel="icon" type="image/x-icon" href="img/favicon.png">
 
 
     <!-- Leaflet mapping -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="">
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
     <!-- Leaflet mapping -->
 
@@ -31,42 +32,55 @@
     <!-- font-awesome -->
 
     <!-- leaflet-geocoder for search button -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css">
     <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
     <!-- leaflet-geocoder for search button -->
+
 </head>
 
-<body id="geojsonio-body" style="display: block;" dropzone="copy">
-    <div class="geojsonio parent">
+<body id="geojsonio-body">
+    <div class="parent">
 
         <div id="map">
 
             <!-- layer-switch -->
-            <div class="layer-switch">
-                <button class="pad0x">Leaflet</button>
-                <button class="pad0x">Setellite</button>
-                <button class="pad0x selected">OSM</button>
+            <div id="layer-switch" onclick="toggleMap(this)">
+                <button class="btn active">Leaflet</button>
+                <button class="btn">Setellite</button>
+                <button class="btn">OSM</button>
             </div>
+
+            <script>
+                // Add active class to the current button (highlight it)
+                var header = document.getElementById("layer-switch");
+                var btns = header.getElementsByClassName("btn");
+                for (var i = 0; i < btns.length; i++) {
+                    btns[i].addEventListener("click", function() {
+                        var current = document.getElementsByClassName("active");
+                        current[0].className = current[0].className.replace(" active", "");
+                        this.className += " active";
+                    });
+                }
+            </script>
             <!-- layer-switch -->
 
+
             <!-- rightside tool-bar -->
-            <div class="leaflet-top leaflet-right" style="margin-top: 107px;">
-                <div class="leaflet-draw leaflet-control">
-                    <div class="leaflet-draw-section">
-                        <div class="leaflet-draw-toolbar leaflet-bar leaflet-draw-toolbar-top">
+            <div class="leaflet-top leaflet-right" style="margin-top: 106px;">
+                <div class="leaflet-control">
+                    <div class="leaflet-draw-section top-margin">
+                        <div class="leaflet-draw-toolbar leaflet-bar">
                             <a class="leaflet-draw-draw-polyline" href="#" title="Draw a polyline"></a>
                             <a class="leaflet-draw-draw-polygon" href="#" title="Draw a polygon"></a>
                             <a class="leaflet-draw-draw-rectangle" href="#" title="Draw a rectangle"></a>
                             <a class="leaflet-draw-draw-marker" href="#" title="Draw a marker"></a>
                         </div>
-                        <ul class="leaflet-draw-actions"></ul>
                     </div>
                     <div class="leaflet-draw-section">
                         <div class="leaflet-draw-toolbar leaflet-bar">
                             <a class="leaflet-draw-edit-edit leaflet-disabled" href="#" title="No layers to edit."></a>
                             <a class="leaflet-draw-edit-remove leaflet-disabled" href="#" title="No layers to delete."></a>
                         </div>
-                        <ul class="leaflet-draw-actions"></ul>
                     </div>
                 </div>
             </div>
@@ -75,15 +89,16 @@
 
         </div>
 
-
-
-
         <script>
             var map = L.map('map').setView([0, 0], 3);
 
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            // google streets default//
+            googleStreets = L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
+                maxZoom: 20,
+                subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+                attribution: '<a target="_blank" href="http://geojson.io/about.html">About</a> &copy; <a target = "_blank" href="https://maps.google.com/">GoogleMap</a> contributors'
             }).addTo(map);
+            // google streets //
 
 
             // search-button //
@@ -91,21 +106,17 @@
             // search-button //
 
 
-            // marker on map //
-            // L.marker([25.902013102476744, 74.69018368371563]).addTo(map)
-            //     .bindPopup('PopUp shows <br> My HOUSE.')
-            //     .openPopup();
-            // marker on map //
-
             //  remove zoomcontrol //
             map.removeControl(map.zoomControl);
             //  remove zoomcontrol //
 
+
             // add zoomcontrol to desired location //
             new L.Control.Zoom({
-                position: 'topright'
+                position: 'topright',
             }).addTo(map);
             // add zoomcontrol to desired location //
+
 
             // scale //
             L.control.scale({
@@ -115,7 +126,8 @@
             }).addTo(map);
             // scale //
 
-            // search //
+
+            // search engine //
             var searchControl = new L.esri.Controls.Geosearch().addTo(map);
             var results = new L.LayerGroup().addTo(map);
 
@@ -125,17 +137,83 @@
                     results.addLayer(L.marker(data.results[i].latlng));
                 }
             });
-
             setTimeout(function() {
                 $('.pointer').fadeOut('slow');
             }, 3400);
-            // search //
+            // search engine //
+
+
+            // toggle maps JS //
+            function toggleMap(e) {
+                console.log("e ", e)
+                for (let i = 0; i < e.children.length; i++) {
+                    const elem = e.children[i];
+                    console.log("child ", elem)
+                    if (elem.className.indexOf('active') > -1) {
+                        if (elem.innerText == 'Leaflet') {
+                            // Leaflet googlestreet //
+                            googleStreets = L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
+                                maxZoom: 20,
+                                subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+                                attribution: '<a target="_blank" href="http://geojson.io/about.html">About</a> &copy; <a target = "_blank" href="https://maps.google.com/">GoogleMap</a> contributors'
+                            }).addTo(map);
+                            // Leaflet googlestreet //
+                        }
+                        if (elem.innerText == 'Setellite') {
+                            // hybrid-setellite //
+                            googleHybrid = L.tileLayer('http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}', {
+                                maxZoom: 20,
+                                subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+                                attribution: '&copy; <a target = "_blank" href="https://www.maxar.com/">maxar</a> contributors'
+                            }).addTo(map);
+                            // hybrid-setellite //
+                        }
+                        if (elem.innerText == 'OSM') {
+                            //  OSM //
+                            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                                attribution: '&copy; <a target = "_blank" href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                            }).addTo(map);
+                            //  OSM //
+                        }
+                    }
+                }
+            }
+            // toggle maps JS //
+
+
+            // right side collapse JS //
+            function toggleMenu(e) {
+                var left = document.getElementById("map");
+                var right = (document.getElementsByClassName("right"))[0];
+                var topbar = (document.getElementsByClassName("top"))[0];
+                var ltop = (document.getElementsByClassName("leaflet-top"))[0];
+                var searchzoom = (document.getElementsByClassName("leaflet-control-geocoder"))[0];
+                var elem = e;
+
+                var classes = left.className;
+                if (elem.className && elem.className.indexOf('collapsed') > -1) {
+                    classes += ' fullscreen';
+                    left.setAttribute('class', classes);
+                    right.setAttribute('style', 'height: 40px; border-bottom: 1px solid #d9d9d9; overflow-y: hidden;');
+                    topbar.setAttribute('style', 'background-color: #fff;');
+                    ltop.setAttribute('style', 'margin-top: 143px;');
+                    searchzoom.setAttribute('style', 'margin-top: 10px !important;');
+                } else {
+                    classes = classes.replace('fullscreen', '')
+                    left.setAttribute('class', classes);
+                    right.setAttribute('style', '');
+                    topbar.setAttribute('style', 'background-color: #eee;');
+                    ltop.setAttribute('style', 'margin-top: 106px;');
+                    searchzoom.setAttribute('style', 'margin-top: -28px;');
+                }
+            }
+            // right side collapse JS //
         </script>
 
 
         <!-- left header self-edited -->
         <div class="file-bar">
-            <div class="box1 lh-base">
+            <div class="box1">
                 <div class="dropdown">
                     <button class="dropbtn">Open</button>
                     <div class="dropdown-content" style="min-width: 60px;">
@@ -160,7 +238,7 @@
                 </div>
 
                 <div class="dropdown">
-                    <button class="dropbtn">New</button>
+                    <button class="dropbtn" onclick=" window.open('file:///C:/Users/TRILOK/Desktop/geojson-copy/index.html','_blank')">New</button>
                 </div>
 
                 <div class="dropdown">
@@ -175,7 +253,8 @@
                         <a title="Delete all features from the map">Clear</a>
                         <a title="Add random points to your map">Random: Points</a>
                         <a title="Add bounding box members to all applicable GeoJSON objects">Add bboxes</a>
-                        <a title="Flatten MultiPolygons, MultiLines, and GeometryCollections into simple geometries">Flatten Multi Features</a>
+                        <a title="Flatten MultiPolygons, MultiLines, and GeometryCollections into simple geometries">Flatten
+                            Multi Features</a>
                         <a>Load encoded polyline</a>
                         <a>Load WKB Base64 Encoded String</a>
                         <a>Load WKB Hex Encoded String</a>
@@ -183,8 +262,9 @@
                     </div>
                 </div>
                 <div class="name pt-2">
-                    <a target="_blank"></a><i class="far fa-file"></i>
-                    <span class="filename">unsaved</span></div>
+                    <a target="_blank"></a><i class="far fa-file" style="color: #2980b9;"></i>
+                    <span class="filename deemphasize">unsaved</span>
+                </div>
             </div>
         </div>
         <!-- left header self-edited -->
@@ -192,26 +272,36 @@
 
         <!-- right header self-edited -->
         <div class="right">
-            <div class="top tab-height">
-                <!-- collapse section -->
-                <a class="coll btn" data-bs-toggle="collapse" href="#collapse-content" role="button" aria-expanded="false" aria-controls="collapse-content"><i class="fas fa-caret-up"></i></a>
+            <div class="top">
+                <!-- collapse button -->
+                <a class="coll btn" onclick="toggleMenu(this)" data-bs-toggle="collapse" href="#collapse-content" role="button" aria-expanded="false" aria-controls="collapse-content"><i class="fas fa-caret-up"
+                        style="margin-top: 6px;"></i></a>
+                <!-- collapse button -->
 
-                <div class="collapse" id="collapse-content" style="margin-top: -43px; width: 58%;">
+                <!-- user pad -->
+                <div class="fr pad1 deemphasize"><a target="_blank" href="#">anon</a><span> | </span><a href="#">login</a></div>
+                <!-- user pad -->
+
+                <!-- collapse section -->
+                <div class="collapse no-transition show" id="collapse-content" style="margin-top: -40px;">
                     <!-- tabs -->
-                    <nav style="margin-left: 28px; height: 0px;">
+                    <nav style="margin-left: 27px;">
                         <div class="nav" id="nav-tab" role="tablist">
-                            <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true"><i class="fas fa-code"></i><span> JSON</span></button>
-                            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="fas fa-table"></i><span> Table</span></button>
-                            <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false"><i class="fas fa-question"></i><span> Help</span></button>
+                            <button class="nav-link active" id="nav-JSON-tab" data-bs-toggle="tab" data-bs-target="#nav-JSON" type="button" role="tab" aria-controls="nav-JSON" aria-selected="true"><i class="fas fa-code"></i><span> JSON</span></button>
+                            <button class="nav-link" id="nav-Table-tab" data-bs-toggle="tab" data-bs-target="#nav-Table" type="button" role="tab" aria-controls="nav-Table" aria-selected="false"><i
+                                    class="fas fa-table"></i><span> Table</span></button>
+                            <button class="nav-link" id="nav-Help-tab" data-bs-toggle="tab" data-bs-target="#nav-Help" type="button" role="tab" aria-controls="nav-Help" aria-selected="false"><i
+                                    class="fas fa-question"></i><span> Help</span></button>
                         </div>
                     </nav>
                     <div class="tab-content" id="nav-tabContent">
 
                         <!-- for active JSON -->
-                        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                        <div class="tab-pane fade show active" id="nav-JSON" role="tabpanel" aria-labelledby="nav-JSON-tab">
                             <div class="pane"><textarea style="display: none;"></textarea>
-                                <div class="CodeMirror">
-                                    <div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 6.21528px; left: 32.9861px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" style="position: absolute; padding: 0px; width: 1000px; height: 1em; outline: none; font-size: 4px;" tabindex="0"></textarea></div>
+                                <div class="CodeMirror cm-s-eclipse">
+                                    <div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 6.21528px; left: 32.9861px;">
+                                        <textarea autocorrect="off" autocapitalize="off" spellcheck="false" style="position: absolute; padding: 0px; width: 1000px; height: 1em; outline: none; font-size: 4px;" tabindex="0"></textarea></div>
                                     <div class="CodeMirror-hscrollbar" style="left: 29px;">
                                         <div style="height: 1px;"></div>
                                     </div>
@@ -225,36 +315,49 @@
                                             <div style="position: relative; top: 0px;">
                                                 <div class="CodeMirror-lines">
                                                     <div style="position: relative; outline: none;">
-                                                        <div class="CodeMirror-measure"><pre><span>{</span></pre></div>
-                                                        <div style="position: relative; z-index: 1; display: none;"></div>
-                                                        <div class="CodeMirror-code">
-                                                            <div style="position: relative;">
-                                                                <div style="position: absolute; left: -28.993px;">
-                                                                    <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">1</div>
-                                                                </div><pre>{</pre></div>
-                                                            <div style="position: relative;">
-                                                                <div style="position: absolute; left: -28.993px;">
-                                                                    <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">2</div>
-                                                                </div><pre>  <span class="cm-string cm-property">"type"</span>: <span class="cm-string">"FeatureCollection"</span>,</pre></div>
-                                                            <div style="position: relative;">
-                                                                <div style="position: absolute; left: -28.993px;">
-                                                                    <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">3</div>
-                                                                </div><pre>  <span class="cm-string cm-property">"features"</span>: []</pre></div>
-                                                            <div style="position: relative;">
-                                                                <div style="position: absolute; left: -28.993px;">
-                                                                    <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">4</div>
-                                                                </div><pre>}</pre></div>
+                                                        <div class="CodeMirror-measure">
+                                                            <pre><span>{</span></pre>
                                                         </div>
-                                                        <div class="CodeMirror-cursor" style="left: 3.99304px; top: 2.22222px; height: 16.6667px; visibility: hidden;">&nbsp;</div>
+                                                        <div style="position: relative; z-index: 1; display: none;">
+                                                        </div>
+                                                        <div class="CodeMirror-code" style="color: black;">
+                                                            <div style="position: relative;">
+                                                                <div style="position: absolute; left: -28.993px;">
+                                                                    <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 28px;">1</div>
+                                                                </div>
+                                                                <pre>{</pre>
+                                                            </div>
+                                                            <div style="position: relative;">
+                                                                <div style="position: absolute; left: -28.993px;">
+                                                                    <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 28px;">2</div>
+                                                                </div>
+                                                                <pre>  <span class="cm-string cm-property">"type"</span>: <span class="cm-string">"FeatureCollection"</span>,</pre>
+                                                            </div>
+                                                            <div style="position: relative;">
+                                                                <div style="position: absolute; left: -28.993px;">
+                                                                    <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 28px;">3</div>
+                                                                </div>
+                                                                <pre>  <span class="cm-string cm-property">"features"</span>: []</pre>
+                                                            </div>
+                                                            <div style="position: relative;">
+                                                                <div style="position: absolute; left: -28.993px;">
+                                                                    <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 28px;">4</div>
+                                                                </div>
+                                                                <pre>}</pre>
+                                                            </div>
+                                                        </div>
+                                                        <div class="CodeMirror-cursor" style="left: 3.99304px; top: 2.22222px; height: 16.6667px; visibility: hidden;">
+                                                            &nbsp;</div>
                                                         <div class="CodeMirror-cursor CodeMirror-secondarycursor" style="display: none; visibility: hidden;">&nbsp;</div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div style="position: absolute; height: 30px; width: 1px; top: 96.8889px;"></div>
+                                        <div style="position: absolute; height: 30px; width: 1px; top: 96.8889px;">
+                                        </div>
                                         <div class="CodeMirror-gutters" style="height: 664px;">
-                                            <div class="CodeMirror-gutter error"></div>
-                                            <div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 28px;"></div>
+                                            <div class="CodeMirror-gutter"></div>
+                                            <div style="width: 28px;"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -263,7 +366,7 @@
                         <!-- for active JSON -->
 
                         <!-- for active TABLE -->
-                        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                        <div class="tab-pane fade" id="nav-Table" role="tabpanel" aria-labelledby="nav-Table-tab">
                             <div class="pane">
                                 <div class="blank-banner center">no features</div>
                             </div>
@@ -271,7 +374,7 @@
                         <!-- for active TABLE -->
 
                         <!-- for active HELP -->
-                        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                        <div class="tab-pane fade" id="nav-Help" role="tabpanel" aria-labelledby="nav-Help-tab">
                             <div class="pane">
                                 <div class="pad2 prose">
                                     <h2>Help</h2>
@@ -280,7 +383,7 @@
                                         and it supports GeoJSON in all ways - but also accepts KML, GPX, CSV, GTFS, TopoJSON, and other formats.</p>
 
                                     <p>Need extra help or see a bug? <a target="_blank" href="https://github.com/mapbox/geojson.io/issues?state=open">Open an issue
-                        on geojson.io's issue tracker.</a>
+                                            on geojson.io's issue tracker.</a>
 
                                     </p>
                                     <h3>I've got data</h3>
@@ -340,37 +443,46 @@
                                     </h3>
                                     <p>Open the map at a specific location. The argument is numbers separated by
                                         <pcode>/</pcode> in the form
-                                        <pcode>zoom/latitude/longitude</pcode>.</p>
+                                        <pcode>zoom/latitude/longitude</pcode>.
+                                    </p>
                                     <h4 id="example-">Example:</h4>
-                                    <p><a href="http://geojson.io/#map=2/20.0/0.0">http://geojson.io/#map=2/20.0/0.0</a></p>
+                                    <p><a href="http://geojson.io/#map=2/20.0/0.0">http://geojson.io/#map=2/20.0/0.0</a>
+                                    </p>
                                     <h3 id="-data-data-application-json-">
                                         <pcode>data=data:application/json,</pcode>
                                     </h3>
                                     <p>Open the map and load a chunk of <a href="http://geojson.org/">GeoJSON</a> data from a URL segment directly onto the map. The GeoJSON data should be encoded as per
-                                        <pcode>encodeURIComponent(JSON.stringify(geojson_data))</pcode>.</p>
+                                        <pcode>encodeURIComponent(JSON.stringify(geojson_data))</pcode>.
+                                    </p>
                                     <h4 id="example-">Example:</h4>
-                                    <p><a href="http://geojson.io/#data=data:application/json,%7B%22type%22%3A%22LineString%22%2C%22coordinates%22%3A%5B%5B0%2C0%5D%2C%5B10%2C10%5D%5D%7D">http://geojson.io/#data=data:application/json,%7B%22type%22%3A%22LineString%22%2C%22coordinates%22%3A%5B%5B0%2C0%5D%2C%5B10%2C10%5D%5D%7D</a></p>
+                                    <p><a href="http://geojson.io/#data=data:application/json,%7B%22type%22%3A%22LineString%22%2C%22coordinates%22%3A%5B%5B0%2C0%5D%2C%5B10%2C10%5D%5D%7D">http://geojson.io/#data=data:application/json,%7B%22type%22%3A%22LineString%22%2C%22coordinates%22%3A%5B%5B0%2C0%5D%2C%5B10%2C10%5D%5D%7D</a>
+                                    </p>
                                     <h3 id="-data-data-text-x-url-">
                                         <pcode>data=data:text/x-url,</pcode>
                                     </h3>
                                     <p>Load GeoJSON data from a URL on the internet onto the map. The URL must refer directly to a resource that is:</p>
                                     <ul>
                                         <li>Freely accessible (not behind a password)</li>
-                                        <li>Supports <a href="http://en.wikipedia.org/wiki/Cross-origin_resource_sharing">CORS</a></li>
+                                        <li>Supports <a href="http://en.wikipedia.org/wiki/Cross-origin_resource_sharing">CORS</a>
+                                        </li>
                                         <li>Is valid GeoJSON</li>
                                     </ul>
                                     <p>The URL should be encoded as per
-                                        <pcode>encodeURIComponent(url)</pcode>.</p>
+                                        <pcode>encodeURIComponent(url)</pcode>.
+                                    </p>
                                     <h4 id="example-">Example:</h4>
-                                    <p><a href="http://geojson.io/#data=data:text/x-url,http%3A%2F%2Fapi.tiles.mapbox.com%2Fv3%2Ftmcw.map-gdv4cswo%2Fmarkers.geojson">http://geojson.io/#data=data:text/x-url,http%3A%2F%2Fapi.tiles.mapbox.com%2Fv3%2Ftmcw.map-gdv4cswo%2Fmarkers.geojson</a></p>
+                                    <p><a href="http://geojson.io/#data=data:text/x-url,http%3A%2F%2Fapi.tiles.mapbox.com%2Fv3%2Ftmcw.map-gdv4cswo%2Fmarkers.geojson">http://geojson.io/#data=data:text/x-url,http%3A%2F%2Fapi.tiles.mapbox.com%2Fv3%2Ftmcw.map-gdv4cswo%2Fmarkers.geojson</a>
+                                    </p>
                                     <h3 id="-id-gist-">
                                         <pcode>id=gist:</pcode>
                                     </h3>
                                     <p>Load GeoJSON data from a <a href="https://gist.github.com/">GitHub Gist</a>, given an argument in the form of
                                         <pcode>login/gistid</pcode>. The Gist can be public or private, and must contain a file with a
-                                        <pcode>.geojson</pcode> extension that is valid GeoJSON.</p>
+                                        <pcode>.geojson</pcode> extension that is valid GeoJSON.
+                                    </p>
                                     <h4 id="example-">Example:</h4>
-                                    <p><a href="http://geojson.io/#id=gist:tmcw/e9a29ad54dbaa83dee08&amp;map=8/39.198/-76.981">http://geojson.io/#id=gist:tmcw/e9a29ad54dbaa83dee08&amp;map=8/39.198/-76.981</a></p>
+                                    <p><a href="http://geojson.io/#id=gist:tmcw/e9a29ad54dbaa83dee08&amp;map=8/39.198/-76.981">http://geojson.io/#id=gist:tmcw/e9a29ad54dbaa83dee08&amp;map=8/39.198/-76.981</a>
+                                    </p>
                                     <h3 id="-id-github-">
                                         <pcode>id=github:</pcode>
                                     </h3>
@@ -379,7 +491,8 @@
                                     <pre><pcode>login/repository/blob/branch/filepath
                     </pcode></pre>
                                     <h4 id="example-">Example:</h4>
-                                    <p><a href="http://geojson.io/#id=github:benbalter/dc-wifi-social/blob/master/bars.geojson&amp;map=14/38.9140/-77.0302">http://geojson.io/#id=github:benbalter/dc-wifi-social/blob/master/bars.geojson&amp;map=14/38.9140/-77.0302</a></p>
+                                    <p><a href="http://geojson.io/#id=github:benbalter/dc-wifi-social/blob/master/bars.geojson&amp;map=14/38.9140/-77.0302">http://geojson.io/#id=github:benbalter/dc-wifi-social/blob/master/bars.geojson&amp;map=14/38.9140/-77.0302</a>
+                                    </p>
                                     <h2 id="console-api">Console API</h2>
                                     <p><a href="http://debugbrowser.com/">Pop open your browser console</a> and see the beautiful examples: geojson.io has started to expose a subset of its inner workings for you to mess around with:</p>
                                     <h3 id="-window-api-map-">
@@ -392,17 +505,20 @@
                                     <h3 id="-window-api-data-">
                                         <pcode>window.api.data</pcode>
                                     </h3>
-                                    <p>The data model. See the <a href="https://github.com/mapbox/geojson.io/blob/gh-pages/src/core/data.js#L48-L90">code to get an idea of how it works</a> - you'll want to use stuff like
+                                    <p>The data model. See the <a href="https://github.com/mapbox/geojson.io/blob/gh-pages/src/core/data.js#L48-L90">code
+                                            to get an idea of how it works</a> - you'll want to use stuff like
                                         <pcode>data.set({ map: { .. your geojson map information .. })</pcode> and
                                         <pcode>data.get('map')</pcode> and
-                                        <pcode>data.mergeFeatures([arrayoffeatures])</pcode> to do your dirty business.</p>
+                                        <pcode>data.mergeFeatures([arrayoffeatures])</pcode> to do your dirty business.
+                                    </p>
                                     <h2 id="-window-api-maplayer-">
                                         <pcode>window.api.mapLayer</pcode>
                                     </h2>
                                     <p>This is the Leaflet featureGroup that gets filled with features as you draw them. You can operate on this directly to do advanced stuff like selecting a feature with its id:</p>
                                     <pre><pcode class="lang-js">var layers = [];window.api.mapLayer.eachLayer(l =&gt; { layers.push(l); });layers.find(l =&gt; l.feature.id == 'a').openPopup();
                     </pcode></pre>
-                                    <p>That example uses <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions">arrow functions</a> which are supported in Chrome &amp; Firefox.</p>
+                                    <p>That example uses <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions">arrow
+                                            functions</a> which are supported in Chrome &amp; Firefox.</p>
                                     <h2 id="-window-api-drawcontrol-">
                                         <pcode>window.api.drawControl</pcode>
                                     </h2>
@@ -411,10 +527,12 @@
                                         <pcode>window.api.on(event, fn)</pcode>
                                     </h2>
                                     <p>Exposes d3 events, including
-                                        <pcode>change</pcode>.</p>
+                                        <pcode>change</pcode>.
+                                    </p>
                                     <h2 id="protips">Protips</h2>
                                     <p>To include
-                                        <pcode>turf</pcode> from <a href="https://github.com/turfjs/turf">turf</a> so you can manipulate features with its GIS features, run this in the CLI, which will download the script and evaluate it.</p>
+                                        <pcode>turf</pcode> from <a href="https://github.com/turfjs/turf">turf</a> so you can manipulate features with its GIS features, run this in the CLI, which will download the script and evaluate it.
+                                    </p>
                                     <pre><pcode class="lang-js">fetch('https://npmcdn.com/@turf/turf@3.1.1/turf.js').then(t =&gt; t.text()).then(eval)
                     </pcode></pre>
                                 </div>
@@ -427,10 +545,6 @@
                 </div>
                 <!-- collapse section -->
 
-                <!-- user pad -->
-                <div class="fr pad1 deemphasize"><a target="_blank" href="#">anon</a><span> | </span><a href="#">login</a></div>
-                <!-- user pad -->
-
             </div>
         </div>
         <!-- right header self-edited -->
@@ -440,6 +554,9 @@
         <!-- bootstrap JS -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
         <!-- bootstrap JS -->
+
+
+    </div>
 </body>
 
 </html>

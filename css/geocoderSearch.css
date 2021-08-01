@@ -1,0 +1,20 @@
+.leaflet-control-geocoder-icon {
+    width: 26px !important;
+    height: 26px !important;
+    float: right;
+}
+
+.leaflet-control-geocoder {
+    min-width: 28px !important;
+    min-height: 28px !important;
+    margin-top: -28px !important;
+}
+
+.leaflet-control-geocoder-form {
+    width: 180px;
+    margin-left: 5px;
+}
+
+.leaflet-control-geocoder-form input {
+    width: 180px !important;
+}

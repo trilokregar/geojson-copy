@@ -1,30 +1,25 @@
-  body#geojsonio-body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
-      font-size: 15px;
-      line-height: 20px;
-      color: #222;
-      -webkit-font-smoothing: antialiased;
-  }
-  
-  #map {
-      height: 100%;
-  }
-  
-  #infoi {
-      z-index: 1;
-      position: absolute;
-  }
-  
-  .parent {
-      width: 100%;
-  }
-  
-  .parent #map {
-      width: 60%;
-  }
-  
-  .parent .right {
-      width: 40%;
-  }
+body#geojsonio-body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 15px;
+    line-height: 20px;
+    color: #222;
+    -webkit-font-smoothing: antialiased;
+}
+
+#map {
+    height: 100%;
+}
+
+#map {
+    right: 40%;
+}
+
+.parent .right {
+    width: 40%;
+}
+
+.fullscreen {
+    right: 0 !important;
+}
