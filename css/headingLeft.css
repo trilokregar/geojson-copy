@@ -1,8 +1,5 @@
-.file-bar {
+#file-bar {
     right: 50%;
-}
-
-.file-bar {
     position: absolute;
     top: 0;
     left: 0;
@@ -12,76 +9,41 @@
     display: inline-flex;
 }
 
-.file-bar i:hover {
-    cursor: pointer;
-    background: #34495e;
-    color: #fff;
+.deemphasize {
+    color: #888 !important;
+    font-family: sans-serif;
 }
 
-.dropbtn {
-    background-color: #fff;
-    color: rgb(41, 128, 185);
-    padding: 16px;
-    font-size: 15px;
-    border: none;
+.far {
+    color: #2980b9;
 }
 
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #fff;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-    z-index: 1;
-    color: rgb(41, 128, 185);
+.transform {
+    transform: translate3d(0px, 40px, 0px) !important;
+    padding: 0px !important;
+    min-width: 0 !important;
 }
 
-.dropdown-content a {
-    color: black;
-    padding: 5px 16px;
-    text-decoration: none;
-    display: block;
-}
-
-.dropdown:hover .dropdown-content {
-    display: block;
-}
-
-.dropdown-content a:hover {
-    background: rgb(52, 73, 94);
-    color: #fff !important;
-}
-
-a:hover {
-    color: rgb(25, 156, 244);
-}
-
-.box1 {
-    padding: 0;
-    height: 40px;
-    display: flex;
-    background: #fff;
-}
-
-.box1 div button {
-    padding: 0px 10px;
-    height: 40px;
-    outline: none;
-    display: inline-block;
-}
-
-.file-bar .name {
+.name {
     padding: 0 10px;
     display: inline-block;
     vertical-align: top;
     background: #fff;
 }
 
-.dropbtn:hover {
+.dropdown-item.hov:hover {
     background: rgb(52, 73, 94);
     color: #fff !important;
 }
 
-.file-bar .name .filename {
-    margin-left: 5px;
+.nav-item.hov:hover {
+    background: rgb(52, 73, 94);
+}
+
+.dropdown-menu.transform a {
+    color: rgb(41, 128, 185);
+}
+
+.nav-item.dropdown:hover a.nav-link {
+    color: #fff;
 }

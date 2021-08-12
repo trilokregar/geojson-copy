@@ -16,10 +16,6 @@ body#geojsonio-body {
     right: 40%;
 }
 
-.parent .right {
+#parent #right {
     width: 40%;
-}
-
-.fullscreen {
-    right: 0 !important;
 }

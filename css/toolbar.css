@@ -9,28 +9,20 @@
 
 #geojsonio-body .leaflet-bar {
     border-radius: 0;
-}
-
-.leaflet-bar {
-    background-color: #fff;
-    border: 1px solid #999 !important;
-    border-color: rgba(0, 0, 0, .4);
-    border-radius: 3px;
-    box-shadow: none;
+    border: 1px solid #999;
 }
 
 #geojsonio-body .leaflet-bar a {
     border: 0;
-    border-radius: 0;
+}
+
+.leaf-bar {
+    background-color: #fff;
 }
 
 .leaflet-bar a {
-    background-color: none;
     width: 26px !important;
     height: 26px !important;
-    vertical-align: middle;
-    background-repeat: no-repeat;
-    color: rgba(0, 0, 0, .75);
     line-height: 26px !important;
 }
 
@@ -38,11 +30,7 @@
     margin-top: 11px;
 }
 
-.leaflet-draw-section {
-    position: relative;
-}
-
-.top-margin {
+.mt-12 {
     margin-top: -12px;
 }
 
@@ -86,8 +74,3 @@
 
 
 /* tools position */
-
-.leaflet-bar .leaflet-disabled {
-    cursor: default;
-    opacity: .75;
-}
